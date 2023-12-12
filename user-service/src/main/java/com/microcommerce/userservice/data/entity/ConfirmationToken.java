@@ -15,9 +15,12 @@ import java.util.UUID;
 public class ConfirmationToken {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "token_id")
-    private UUID tokenId;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "token")
+    private UUID token;
 
     @Column(name = "expiration_date")
     private OffsetDateTime expirationDate;
@@ -29,7 +32,7 @@ public class ConfirmationToken {
     private boolean used;
 
     public ConfirmationToken() {
-        this.tokenId = UUID.randomUUID();
+        this.token = UUID.randomUUID();
         this.expirationDate = OffsetDateTime.now().plusHours(2);
     }
 

@@ -14,7 +14,7 @@ spring:
         - id: user-service-auth-route
           uri: lb://${USER_SERVICE_URI:user-service}
           predicates:
-            - Method=POST
+            - Method=POST, GET
             - Path=/auth/**
           filters:
             - PrefixPath=/api

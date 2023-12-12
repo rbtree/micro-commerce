@@ -1,16 +1,9 @@
-eureka:
-  client:
-    service-url:
-      default-zone: http://localhost:8761/eureka
-
 spring:
   application:
     name: notification-service
   mail:
-    host: ${EMAIL_HOST}
-    port: ${EMAIL_PORT}
-    username: ${EMAIL_ID}
-    password: ${EMAIL_PASSWORD}
+    host: smtp.gmail.com
+    port: 587
     default-encoding: UTF-8
     properties:
       mail:
@@ -25,19 +18,20 @@ spring:
             enable: true
             required: true
     verify:
-      host: ${VERIFY_EMAIL_HOST}
+      host: http://localhost:587
 
 kafka:
+  broker:
+    host: localhost:9092
   topics:
-    notification-topic: notification-topic
-    account-topic: account-topic
+    notification-topic:
+      name: notification-topic
+      group-id: group-id
+    account-topic:
+      name: account-topic
+      group-id: group-id-2
+
+account-confirmation-url: "http://localhost:8080/auth/confirm?token="
 
 server:
   port: 8083
-
-#Email config
-EMAIL_HOST: smtp.gmail.com
-EMAIL_PORT: 587
-EMAIL_ID: milojevicbogdan01@gmail.com
-EMAIL_PASSWORD: ${EMAIL_PASSWORD}
-VERIFY_EMAIL_HOST: http://localhost:${server.port}

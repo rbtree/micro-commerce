@@ -10,8 +10,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -48,7 +46,7 @@ public class User implements UserDetails {
     private Set<UserRole> authorities;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "confirmation_token_id", referencedColumnName = "id", nullable = true)
+    @JoinColumn(name = "confirmation_token_id", referencedColumnName = "id")
     private ConfirmationToken confirmationToken;
 
     public User() {

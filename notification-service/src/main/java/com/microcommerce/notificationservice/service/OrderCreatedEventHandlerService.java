@@ -15,8 +15,8 @@ import org.thymeleaf.context.Context;
 @RequiredArgsConstructor
 @Slf4j
 public class OrderCreatedEventHandlerService {
-    public static final String ORDER_CONFIRMED_EMAIL_TEMPLATE = "order_confirmation_template";
-    public static final String UTF_8_ENCODING = "UTF-8";
+    private static final String ORDER_CONFIRMED_EMAIL_TEMPLATE = "order_confirmation_template";
+    private static final String UTF_8_ENCODING = "UTF-8";
 
     private final EmailSenderService emailSenderService;
     private final JavaMailSender emailSender;
@@ -30,7 +30,7 @@ public class OrderCreatedEventHandlerService {
 
         Context context = new Context();
         context.setVariable("orderedProducts", orderCreatedEvent.getOrderItems());
-        String text = templateEngine.process(ORDER_CONFIRMED_EMAIL_TEMPLATE, context);
+        String content = templateEngine.process(ORDER_CONFIRMED_EMAIL_TEMPLATE, context);
 
         try {
             var helper = new MimeMessageHelper(orderConfirmationMessage, true, UTF_8_ENCODING);
@@ -38,12 +38,11 @@ public class OrderCreatedEventHandlerService {
             helper.setFrom(sender);
             helper.setTo(orderCreatedEvent.getUser().getEmail());
             helper.setSubject("MicroCommerce Order Confirmed");
-            helper.setText(text, true);
+            helper.setText(content, true);
 
             emailSenderService.sendHtmlMailMessage(orderConfirmationMessage, context);
         } catch (MessagingException exception) {
             log.info(exception.getMessage());
         }
     }
-
 }
