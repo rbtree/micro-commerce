@@ -13,7 +13,7 @@ spring:
     url: jdbc:postgresql://localhost:54321/user
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
     show-sql: false
   jackson:
     default-property-inclusion: non_null

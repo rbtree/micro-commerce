@@ -1,16 +1,21 @@
 package com.microcommerce.userservice.service;
 
-import com.microcommerce.common.validation.*;
+import com.microcommerce.common.validation.ConstraintValidationRule;
+import com.microcommerce.common.validation.ValidationResult;
+import com.microcommerce.common.validation.ValidationRule;
+import com.microcommerce.common.validation.Validator;
 import com.microcommerce.common.web.ApiResponse;
 import com.microcommerce.userservice.data.dto.LoginRequest;
 import com.microcommerce.userservice.data.dto.RegistrationRequest;
 import com.microcommerce.userservice.data.entity.ConfirmationToken;
 import com.microcommerce.userservice.data.entity.Role;
 import com.microcommerce.userservice.data.entity.User;
+import com.microcommerce.userservice.data.entity.UserRole;
 import com.microcommerce.userservice.data.enums.Authority;
 import com.microcommerce.userservice.data.event.AccountCreatedEvent;
 import com.microcommerce.userservice.repository.RoleRepository;
 import com.microcommerce.userservice.repository.UserRepository;
+import com.microcommerce.userservice.repository.UserRoleRepository;
 import com.microcommerce.userservice.util.validation.EmailFormatValidationRule;
 import com.microcommerce.userservice.util.validation.EmailUniqueValidationRule;
 import com.microcommerce.userservice.util.validation.PasswordValidationRule;
@@ -35,6 +40,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Slf4j
 public class AuthenticationService {
+
+    private final UserRoleRepository userRoleRepository;
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -65,10 +72,6 @@ public class AuthenticationService {
                     .build();
         }
 
-        Set<Role> authorities = new HashSet<>() {{
-            add(roleRepository.findByAuthority(Authority.USER).orElseThrow(NoSuchElementException::new));
-        }};
-
         var confirmationToken = new ConfirmationToken();
         var user = User.builder()
                 .email(registrationRequest.getEmail())
@@ -76,11 +79,18 @@ public class AuthenticationService {
                 .lastName(registrationRequest.getLastName())
                 .password(passwordEncoder.encode(registrationRequest.getPassword()))
                 .isEnabled(false)
-                .authorities(authorities)
                 .confirmationToken(confirmationToken)
                 .build();
 
         var savedUser = userRepository.save(user);
+
+        var userRoleEntity = UserRole.builder()
+                .role(roleRepository.findByAuthority(Authority.USER).orElseThrow(NoSuchElementException::new))
+                .user(user)
+                .build();
+
+        userRoleRepository.save(userRoleEntity);
+
         produceAccountCreatedEvent(savedUser);
 
         return ApiResponse.<Void>builder()
@@ -94,7 +104,7 @@ public class AuthenticationService {
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
-                .activationToken(user.getConfirmationToken().getTokenId().toString())
+                .activationToken(user.getConfirmationToken().getToken().toString())
                 .build();
 
         var completableFuture = kafkaTemplate.send("account-topic", UUID.randomUUID(), accountCreatedEvent);
@@ -114,8 +124,8 @@ public class AuthenticationService {
      *
      * @param loginRequest The login request containing user credentials.
      * @return An {@link ApiResponse} with a JWT token if login is successful or
-     *         an error message if the login credentials are invalid or the account
-     *         is disabled.
+     * an error message if the login credentials are invalid or the account
+     * is disabled.
      */
     public ApiResponse<String> loginUser(LoginRequest loginRequest) {
         var constraintValidationResult = validateLoginRequest(loginRequest, loginRequestConstraintValidationRule);

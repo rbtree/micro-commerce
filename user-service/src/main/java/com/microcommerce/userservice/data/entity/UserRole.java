@@ -10,10 +10,12 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class UserRole {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
     private Long id;
 

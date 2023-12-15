@@ -26,6 +26,7 @@
     .header {
       background: #4CAF50;
       padding: 10px 20px;
+      text-align: center;
     }
 
     h1 {
@@ -41,9 +42,12 @@
     a {
       display: inline-block;
       padding: 10px 20px;
-      margin-top: 20px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-weight: 500;
+      font-size: 18px;
       background-color: #4CAF50;
-      color: #fff;
+      color: #fff !important;
       text-decoration: none;
       border-radius: 5px;
     }
@@ -55,20 +59,21 @@
 <div class="container">
 
   <div class="header">
-    <h1>Welcome to Our Company!</h1>
+    <h1>Welcome to MicroCommerce!</h1>
   </div>
-
 
   <p>Hello </strong><strong th:text="${firstName}"></strong></p>
 
   <p>Your account has been successfully created. To activate your account, please click the link below:</p>
 
-  <a href="[confirmationLink]">Confirm Your Account</a>
+  <div style="text-align: center">
+    <a th:href="${confirmationLink}" target="_blank">Confirm Your Account</a>
+  </div>
 
   <p>If you have any questions or need assistance, feel free to contact our support team.</p>
 
   <p>Best regards,<br>
-    Our Company</p>
+    MicroCommerce</p>
 
 </div>
 

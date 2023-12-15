@@ -1,0 +1,290 @@
+{
+  "snapshot": {
+    "created": "2023-12-13T12:43:37.15",
+    "database": {
+      "productVersion": "2023.1.1",
+      "shortName": "intellijPsiClass",
+      "majorVersion": "0",
+      "minorVersion": "0",
+      "user": "bogdanmilojevic",
+      "productName": "JPA Buddy Intellij",
+      "url": "jpab?generationContext=c0f9a3b8-ecfb-4c88-907b-ef864df9d143"
+    },
+    "metadata": {
+      "generationContext": {
+        "dbmsType": "mysql"
+      }
+    },
+    "objects": {
+      "liquibase.structure.core.Catalog": [
+        {
+          "catalog": {
+            "default": true,
+            "name": "JPA_BUDDY",
+            "snapshotId": "5223100"
+          }
+        }
+      ]
+      ,
+      "liquibase.structure.core.Column": [
+        {
+          "column": {
+            "certainDataType": false,
+            "name": "id",
+            "nullable": false,
+            "relation": "liquibase.structure.core.Table#5223102",
+            "snapshotId": "5223104",
+            "type": {
+              "typeName": "UUID"
+            }
+          }
+        },
+        {
+          "column": {
+            "certainDataType": false,
+            "name": "id",
+            "nullable": false,
+            "relation": "liquibase.structure.core.Table#5223111",
+            "snapshotId": "5223110",
+            "type": {
+              "typeName": "UUID"
+            }
+          }
+        },
+        {
+          "column": {
+            "certainDataType": false,
+            "name": "order_id",
+            "nullable": false,
+            "relation": "liquibase.structure.core.Table#5223102",
+            "snapshotId": "5223105",
+            "type": {
+              "typeName": "UUID"
+            }
+          }
+        },
+        {
+          "column": {
+            "certainDataType": false,
+            "name": "order_number",
+            "nullable": true,
+            "relation": "liquibase.structure.core.Table#5223111",
+            "snapshotId": "5223114",
+            "type": {
+              "columnSize": "255!{java.lang.Integer}",
+              "typeName": "VARCHAR"
+            }
+          }
+        },
+        {
+          "column": {
+            "certainDataType": false,
+            "name": "quantity",
+            "nullable": true,
+            "relation": "liquibase.structure.core.Table#5223102",
+            "snapshotId": "5223107",
+            "type": {
+              "typeName": "INT"
+            }
+          }
+        },
+        {
+          "column": {
+            "certainDataType": false,
+            "name": "sku_code",
+            "nullable": false,
+            "relation": "liquibase.structure.core.Table#5223102",
+            "snapshotId": "5223106",
+            "type": {
+              "columnSize": "255!{java.lang.Integer}",
+              "typeName": "VARCHAR"
+            }
+          }
+        },
+        {
+          "column": {
+            "certainDataType": false,
+            "name": "total_amount",
+            "nullable": true,
+            "relation": "liquibase.structure.core.Table#5223102",
+            "snapshotId": "5223108",
+            "type": {
+              "typeName": "DECIMAL"
+            }
+          }
+        },
+        {
+          "column": {
+            "certainDataType": false,
+            "name": "total_amount",
+            "nullable": true,
+            "relation": "liquibase.structure.core.Table#5223111",
+            "snapshotId": "5223113",
+            "type": {
+              "typeName": "DECIMAL"
+            }
+          }
+        },
+        {
+          "column": {
+            "certainDataType": false,
+            "name": "user_id",
+            "nullable": false,
+            "relation": "liquibase.structure.core.Table#5223111",
+            "snapshotId": "5223115",
+            "type": {
+              "typeName": "UUID"
+            }
+          }
+        }
+      ]
+      ,
+      "liquibase.structure.core.ForeignKey": [
+        {
+          "foreignKey": {
+            "foreignKeyColumns": [
+              "liquibase.structure.core.Column#5223105"
+            ]
+            ,
+            "foreignKeyTable": "liquibase.structure.core.Table#5223102",
+            "name": "FK_ORDER_ITEMS_ON_ORDER",
+            "primaryKeyColumns": [
+              "liquibase.structure.core.Column#5223110"
+            ]
+            ,
+            "primaryKeyTable": "liquibase.structure.core.Table#5223111",
+            "snapshotId": "5223109"
+          }
+        }
+      ]
+      ,
+      "liquibase.structure.core.Index": [
+        {
+          "index": {
+            "columns": [
+              "liquibase.structure.core.Column#5223104"
+            ]
+            ,
+            "name": "IX_pk_order_items",
+            "snapshotId": "5223103",
+            "table": "liquibase.structure.core.Table#5223102",
+            "unique": true
+          }
+        },
+        {
+          "index": {
+            "columns": [
+              "liquibase.structure.core.Column#5223110"
+            ]
+            ,
+            "name": "IX_pk_orders",
+            "snapshotId": "5223112",
+            "table": "liquibase.structure.core.Table#5223111",
+            "unique": true
+          }
+        }
+      ]
+      ,
+      "liquibase.structure.core.PrimaryKey": [
+        {
+          "primaryKey": {
+            "backingIndex": "liquibase.structure.core.Index#5223103",
+            "columns": [
+              "liquibase.structure.core.Column#5223104"
+            ]
+            ,
+            "name": "pk_order_items",
+            "snapshotId": "5223117",
+            "table": "liquibase.structure.core.Table#5223102"
+          }
+        },
+        {
+          "primaryKey": {
+            "backingIndex": "liquibase.structure.core.Index#5223112",
+            "columns": [
+              "liquibase.structure.core.Column#5223110"
+            ]
+            ,
+            "name": "pk_orders",
+            "snapshotId": "5223116",
+            "table": "liquibase.structure.core.Table#5223111"
+          }
+        }
+      ]
+      ,
+      "liquibase.structure.core.Schema": [
+        {
+          "schema": {
+            "catalog": "liquibase.structure.core.Catalog#5223100",
+            "default": true,
+            "snapshotId": "5223101"
+          }
+        }
+      ]
+      ,
+      "liquibase.structure.core.Table": [
+        {
+          "table": {
+            "columns": [
+              "liquibase.structure.core.Column#5223104",
+              "liquibase.structure.core.Column#5223105",
+              "liquibase.structure.core.Column#5223106",
+              "liquibase.structure.core.Column#5223107",
+              "liquibase.structure.core.Column#5223108"
+            ]
+            ,
+            "indexes": [
+              "liquibase.structure.core.Index#5223103"
+            ]
+            ,
+            "name": "order_items",
+            "outgoingForeignKeys": [
+              "liquibase.structure.core.ForeignKey#5223109"
+            ]
+            ,
+            "primaryKey": "liquibase.structure.core.PrimaryKey#5223117",
+            "schema": "liquibase.structure.core.Schema#5223101",
+            "snapshotId": "5223102"
+          }
+        },
+        {
+          "table": {
+            "columns": [
+              "liquibase.structure.core.Column#5223110",
+              "liquibase.structure.core.Column#5223113",
+              "liquibase.structure.core.Column#5223114",
+              "liquibase.structure.core.Column#5223115"
+            ]
+            ,
+            "indexes": [
+              "liquibase.structure.core.Index#5223112"
+            ]
+            ,
+            "name": "orders",
+            "primaryKey": "liquibase.structure.core.PrimaryKey#5223116",
+            "schema": "liquibase.structure.core.Schema#5223101",
+            "snapshotId": "5223111"
+          }
+        }
+      ]
+      
+    },
+    "snapshotControl": {
+      "snapshotControl": {
+        "includedType": [
+          "liquibase.structure.core.Catalog",
+          "liquibase.structure.core.Column",
+          "liquibase.structure.core.ForeignKey",
+          "liquibase.structure.core.Index",
+          "liquibase.structure.core.PrimaryKey",
+          "liquibase.structure.core.Schema",
+          "liquibase.structure.core.Sequence",
+          "liquibase.structure.core.Table",
+          "liquibase.structure.core.UniqueConstraint",
+          "liquibase.structure.core.View"
+        ]
+        
+      }
+    }
+  }
+}

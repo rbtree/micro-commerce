@@ -47,7 +47,7 @@ public class OrderService {
     private final ProductClient productClient;
 
     @Value("${kafka.topics.notification-topic}")
-    private static String notificationTopic;
+    private String notificationTopic;
 
     @Transactional
     public ApiResponse<OrderResponse> createOrder(OrderRequest orderRequest) {
